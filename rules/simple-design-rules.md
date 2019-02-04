@@ -1,0 +1,4 @@
+- Passes all the tests.
+- Expresses every idea that we need to express.
+- Says everything OnceAndOnlyOnce.
+- Has no superfluous parts.
