@@ -17,18 +17,9 @@ const bookCost = (number, discount = 1) => number * PRICE * discount;
 function calculateCost(...books) {
   const numberOfBooks = books.length;
   const numberOfDifferentBooks = new Set(books).size;
-  const booksAllTheSame = numberOfDifferentBooks == 1;
 
-  let cost;
-  if (numberOfBooks > 1 && !booksAllTheSame) {
-    const duplicateBooks = numberOfBooks - numberOfDifferentBooks;
-    cost =  bookCost(numberOfDifferentBooks, discountPercentage(numberOfDifferentBooks)) + bookCost(duplicateBooks);
-} else if (numberOfDifferentBooks === 3) {
-  cost = bookCost(3, 0.9);
-} else {
-    cost = bookCost(numberOfBooks);
-  }
-  return cost;
+  const duplicateBooks = numberOfBooks - numberOfDifferentBooks;
+  return bookCost(numberOfDifferentBooks, discountPercentage(numberOfDifferentBooks)) + bookCost(duplicateBooks);
 }
 
 describe("Buying books", () => {
@@ -55,5 +46,10 @@ describe("Buying books", () => {
   it("should cost 21.60 for three different books", () => {
     const cost = calculateCost(VOL1, VOL2, VOL3);
     expect(cost).toBe(21.6);
+  });
+
+  it("should cost 21.60 + 16.0 for three different books and two duplicates", () => {
+    const cost = calculateCost(VOL1, VOL2, VOL2, VOL3, VOL3);
+    expect(cost).toBe(21.6+16.0);
   });
 });
